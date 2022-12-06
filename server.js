@@ -9,15 +9,14 @@ import mongoose from 'mongoose';
 import morgan from 'morgan';
 
 import authRouter from './routes/authRouter.js';
+import postRouter from './routes/postRouter.js';
 
 app.use(express.json());
+
 app.use(morgan('tiny'));
 
 app.use('/api/v1/auth', authRouter);
-
-app.get('/', (req, res) => {
-  res.send('Hello');
-});
+app.use('/api/v1/post', postRouter);
 
 const startServer = async () => {
   try {

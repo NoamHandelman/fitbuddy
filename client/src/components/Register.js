@@ -1,6 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUser } from '../features.js/userSlice';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FormRow from './FormRow';
 
 const initialState = {
@@ -15,6 +16,8 @@ const Register = () => {
   const { user, isLoading } = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const toggleMember = (e) => {
     e.preventDefault();
     setValues({ ...values, isMember: !values.isMember });
@@ -28,19 +31,24 @@ const Register = () => {
     e.preventDefault();
     const { username, email, password, isMember } = values;
     if (!email || !password || (!isMember && !username)) {
-      console.log('fill all fields please');
-      return;
+      return console.log('fill all fields please');
       //will be here alert
     }
     if (isMember) {
-      dispatch(setUser({ user: { email, password }, endPoint: 'login' }));
+      dispatch(setUser({ email, password, endPoint: 'login' }));
       return;
     } else {
-      dispatch(
-        setUser({ user: { username, email, password }, endPoint: 'register' })
-      );
+      dispatch(setUser({ username, email, password, endPoint: 'register' }));
     }
   };
+
+  // useEffect(() => {
+  //   if (user) {
+  //     setTimeout(() => {
+  //       navigate('/home');
+  //     }, 2000);
+  //   }
+  // }, [user, navigate]);
 
   return (
     <section className='form-container'>
@@ -66,8 +74,13 @@ const Register = () => {
           value={values.password}
           handleChange={handleChange}
         />
-        <button type='submit' className='submit-btn' onClick={handleSubmit}>
-          Let's Go!
+        <button
+          type='submit'
+          className='submit-btn'
+          onClick={handleSubmit}
+          disabled={isLoading}
+        >
+          {isLoading ? 'Please wait...' : "Let's Go!"}
         </button>
         <p>
           {values.isMember ? 'Not a buddy yet?' : 'Already a buddy?'}

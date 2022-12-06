@@ -10,7 +10,6 @@ import {
 
 router.route('/register').post(register);
 router.route('/login').post(login);
-router.route('/editUser').patch(editUser);
-router.route('/deleteUser').delete(deleteUser);
+router.route('/:id').patch(editUser).delete(deleteUser);
 
 export default router;

@@ -3,7 +3,6 @@
 :root {
   --background-color: #e5e8e8;
   --primary-green: #009e60;
-
   --btn-border-radius: 0.3rem;
 }
 
@@ -81,4 +80,69 @@ body {
   cursor: pointer;
   font-size: large;
   text-decoration: underline var(--primary-green);
+}
+
+.nav {
+  display: flex;
+  position: sticky;
+  height: 12vh;
+  background-color: #f7f6f3;
+  align-items: center;
+}
+
+.nav-logo {
+  height: 40vh;
+  display: flex;
+}
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+  height: 100vh;
+}
+
+.new-post-container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 60vw;
+  height: 40vh;
+  border-radius: 10px;
+}
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-text {
+  width: 100%;
+  height: 200px;
+  border-color: transparent;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  resize: none;
+}
+
+.new-post-container textarea:focus {
+  outline: none;
+}
+
+.posts-container {
+  margin-top: 16px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.single-post-container {
+  margin-bottom: 16px;
+  margin-top: 16px;
+  background-color: #009e60;
+  width: 60vw;
+  height: 40vh;
+  border-radius: 10px;
 }

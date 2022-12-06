@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Navbar } from './components';
 import { Landing, Home, Profile, Error } from './pages';
 
 function App() {
@@ -6,9 +7,11 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Landing />} />
-        <Route path='/home' element={<Home />} />
-        <Route path='/profile:id' element={<Profile />} />
-        <Route path='*' element={<Error />} />
+        <Route element={<Navbar />}>
+          <Route path='/home' element={<Home />} />
+          <Route path='/profile:id' element={<Profile />} />
+          <Route path='*' element={<Error />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
