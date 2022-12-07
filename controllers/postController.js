@@ -1,12 +1,12 @@
 import Post from '../models/Post.js';
 
 const addPost = async (req, res) => {
-  const { post } = req.body;
+  const { post, user } = req.body;
   if (!post) {
     return console.log('No post to show');
   }
 
-  const newPost = await Post.create({ post });
+  const newPost = await Post.create({ post, user });
 
   res.status(201).json({ post: newPost });
 };

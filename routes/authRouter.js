@@ -1,6 +1,8 @@
 import express from 'express';
 const router = express.Router();
 
+import { authenticateUserByToken } from '../middlewares/authenticateUser.js';
+
 import {
   deleteUser,
   editUser,
@@ -10,6 +12,7 @@ import {
 
 router.route('/register').post(register);
 router.route('/login').post(login);
-router.route('/:id').patch(editUser).delete(deleteUser);
+router.route('/editUser').patch(authenticateUserByToken, editUser);
+router.route('/deleteUser').delete(authenticateUserByToken, deleteUser);
 
 export default router;

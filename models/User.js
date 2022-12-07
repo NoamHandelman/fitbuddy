@@ -3,6 +3,9 @@ const { Schema } = mongoose;
 
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
+import Post from './Post.js';
 
 const UserSchema = new Schema({
   username: {
@@ -37,5 +40,12 @@ UserSchema.methods.comparePassword = async function (password) {
   const isValidPassword = await bcrypt.compare(password, this.password);
   return isValidPassword;
 };
+
+UserSchema.methods.createJWT = function () {
+  return jwt.sign({ userID: this._id }, process.env.ACCESS_JWT_SECRET, {
+    expiresIn: process.env.ACCESS_JWT_SECRET_LIFETIME,
+  });
+};
+
 
 export default mongoose.model('User', UserSchema);

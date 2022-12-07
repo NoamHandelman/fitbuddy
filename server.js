@@ -11,12 +11,17 @@ import morgan from 'morgan';
 import authRouter from './routes/authRouter.js';
 import postRouter from './routes/postRouter.js';
 
+import { handleError } from './middlewares/handleError.js';
+import { authenticateUserByToken } from './middlewares/authenticateUser.js';
+
 app.use(express.json());
 
 app.use(morgan('tiny'));
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/post', postRouter);
+
+app.use(handleError);
 
 const startServer = async () => {
   try {
