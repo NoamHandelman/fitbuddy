@@ -1,6 +1,6 @@
 import Error from './Error';
 import Home from './Home';
 import Landing from './Landing';
-import Profile from './Profile';
+import Profiles from './Profiles';
 
-export { Landing, Home, Profile, Error };
+export { Landing, Home, Profiles, Error };

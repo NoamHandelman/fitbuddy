@@ -11,9 +11,16 @@ const ProfileSchema = new Schema({
     type: String,
     trim: true,
   },
+  profession: {
+    type: String,
+    trim: true,
+  },
+  education: {
+    type: String,
+    trim: true,
+  },
   birthDate: {
     type: Date,
-    required: [true, 'Please provide birth date!'],
   },
   location: String,
   sport: {
@@ -29,6 +36,9 @@ const ProfileSchema = new Schema({
       type: String,
     },
     youtube: {
+      type: String,
+    },
+    twitter: {
       type: String,
     },
   },

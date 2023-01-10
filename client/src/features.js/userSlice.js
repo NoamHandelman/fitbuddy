@@ -1,8 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { customRequest } from '../utils/axios';
+import {
+  addUserToLocalStorage,
+  getUserFromLocalStorage,
+  removeUserFromLocalStorage,
+} from '../utils/localStorage';
 
 const initialState = {
-  user: null,
+  user: getUserFromLocalStorage() || null,
   isLoading: false,
 };
 
@@ -12,9 +17,8 @@ export const setUser = createAsyncThunk(
     const { endPoint } = userData;
     try {
       const { data } = await customRequest.post(`auth/${endPoint}`, userData);
-      const { user } = data;
-      console.log(data);
-      return user;
+      const { user, token } = data;
+      return { user, token };
     } catch (error) {
       return thunkAPI.rejectWithValue('error');
     }
@@ -31,9 +35,9 @@ const userSlice = createSlice({
       })
       .addCase(setUser.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        const { username, email } = payload;
-        const user = { username, email };
-        state.user = user;
+        const { user, token } = payload;
+        state.user = { user, token };
+        addUserToLocalStorage(state.user);
       })
       .addCase(setUser.rejected, (state) => {
         state.isLoading = false;

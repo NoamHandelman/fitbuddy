@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components';
-import { Landing, Home, Profile, Error } from './pages';
+import { Landing, Home, Profiles, Error } from './pages';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
         <Route path='/' element={<Landing />} />
         <Route element={<Navbar />}>
           <Route path='/home' element={<Home />} />
-          <Route path='/profile:id' element={<Profile />} />
+          <Route path='/profiles' element={<Profiles />} />
           <Route path='*' element={<Error />} />
         </Route>
       </Routes>

@@ -5,7 +5,7 @@ import {
 } from '../customErrors/index.js';
 
 export const authenticateUserByToken = async (req, res, next) => {
-    console.log('You hit JWT Middleware');
+  console.log('You hit JWT Middleware');
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     throw new UnauthenticatedError(
@@ -17,11 +17,9 @@ export const authenticateUserByToken = async (req, res, next) => {
     const payload = jwt.verify(token, process.env.ACCESS_JWT_SECRET);
     console.log(payload);
     const { userID } = payload;
-    req.userID = userID;
+    req.user = userID;
     next();
   } catch (error) {
-    throw new UnauthorizedError(
-      'You are not authorized to perform this action'
-    );
+    next(error);
   }
 };

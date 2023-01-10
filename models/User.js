@@ -36,6 +36,14 @@ UserSchema.pre('save', async function () {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
+UserSchema.pre('remove', async function (next) {
+  try {
+    await Post.deleteMany({ user: this._id });
+  } catch (error) {
+    next(error);
+  }
+});
+
 UserSchema.methods.comparePassword = async function (password) {
   const isValidPassword = await bcrypt.compare(password, this.password);
   return isValidPassword;
@@ -46,6 +54,5 @@ UserSchema.methods.createJWT = function () {
     expiresIn: process.env.ACCESS_JWT_SECRET_LIFETIME,
   });
 };
-
 
 export default mongoose.model('User', UserSchema);

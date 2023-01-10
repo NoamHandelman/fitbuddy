@@ -13,11 +13,30 @@ const PostSchema = new Schema(
       required: [true, 'Please provide text for the post!'],
       trim: true,
     },
-    likes: {
-      type: Number,
-      required: [true, 'Please provide likes for the post!'],
-      default: 0,
-    },
+    likes: [
+      {
+        user: {
+          type: mongoose.Types.ObjectId,
+          ref: 'User',
+          required: [true, 'Please provide user'],
+        },
+        default: [],
+      },
+    ],
+    // comments: [
+    //   {
+    //     user: {
+    //       type: mongoose.Types.ObjectId,
+    //       ref: 'User',
+    //       required: [true, 'Please provide user'],
+    //     },
+    //     comment: {
+    //       type: String,
+    //       required: [true, 'Please provide text for your comment'],
+    //     },
+        
+    //   },
+    // ],
   },
   { timestamps: true }
 );

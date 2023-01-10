@@ -1,5 +1,4 @@
 import User from '../models/User.js';
-import Post from '../models/Post.js';
 import {
   BadRequestError,
   UnauthenticatedError,
@@ -63,7 +62,7 @@ const editUser = async (req, res, next) => {
     if (!email || !password) {
       throw new BadRequestError('Please provide all values');
     }
-    const user = await User.findOne({ _id: req.userID });
+    const user = await User.findOne({ _id: req.user });
     if (!user) {
       throw new UnauthorizedError(
         'You are not authorized to perform this action'
@@ -82,13 +81,12 @@ const editUser = async (req, res, next) => {
 
 const deleteUser = async (req, res, next) => {
   try {
-    const user = await User.findOne({ _id: req.userID });
+    const user = await User.findOne({ _id: req.user });
     if (!user) {
       throw new UnauthorizedError(
         'You are not authorized to perform this action'
       );
     }
-    await Post.deleteMany({ user: req.userID });
     await user.remove();
     res.status(200).send({ message: 'User successfully deleted!' });
   } catch (error) {
